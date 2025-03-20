@@ -15,20 +15,20 @@ video_folder = "preprocessed_data/All_scencuts_clips/"
 text_folder = "preprocessed_data/ALL_text_files/"
 
 #ouput_folder for no object present ex: no ball in the chunk
-empty_csv_folder = "Sam2_predictor_data/No_object_present_files/csv_folder/"
-empty_video_folder = "Sam2_predictor_data/No_object_present_files/videos/"
+empty_csv_folder = "Sam_predictor_data/No_object_present_files/csv_folder/"
+empty_video_folder = "Sam_predictor_data/No_object_present_files/videos/"
 
 # output_folder for object present ex: Ball presented in the chunk
-sam_csv_folder = "Sam2_predictor_data/Object_present_files/csv_folder/"
-sam_video_folder = "Sam2_predictor_data/Object_present_files/videos/"
+sam_csv_folder = "Sam_predictor_data/Object_present_files/csv_folder/"
+sam_video_folder = "Sam_predictor_data/Object_present_files/videos/"
 
-error_videos_save =  "Sam2_predictor_data/error_files/videos/"
-error_csv_save = "Sam2_predictor_data/error_files/csv_folder/"
+error_videos_save =  "Sam_predictor_data/error_files/videos/"
+error_csv_save = "Sam_predictor_data/error_files/csv_folder/"
 # for extract frames temp file for annotated save 
 frame_folder = "frames_for_sam2/"
 
 # videos dispalyed with  coordinates annotated  
-sam2_visual_folder= "Sam2_predictor_data/Sam2_visualization_annoted_clips/"
+sam2_visual_folder= "Sam_predictor_data/Sam2_visualization_annoted_clips/"
 
 # change 0 to stop saving annotated videos 
 save_annotate = 1
@@ -211,10 +211,10 @@ def run_sam2_annotation(video_path, frame_data):
                 contours, _ = cv2.findContours(out_mask.astype(np.uint8), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
                 for contour in contours:
 
-
                 # Get minimum enclosing circle instead of bounding box
                     (center_x, center_y), radius = cv2.minEnclosingCircle(contour)
-                    coordinates.append((center_x, center_y))  # Use circle center
+                    # coordinates.append((center_x, center_y))  # Use circle center
+                    coordinates.append((round(center_x, 1), round(center_y, 1)))
 
   
                 #     x, y, w, h = cv2.boundingRect(contour)
