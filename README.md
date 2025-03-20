@@ -1,17 +1,29 @@
 # Sam2_annotation
 Implemented annotation tool and predicted object by sam2 model gives object centroid in csv  and visual displayed videos 
 
-# Required
+
+# Required main 
 Python 3.13.0 
-torch==2.6.0+cu126
-torchaudio==2.6.0+cu126
-torchvision==0.21.0+cu126
+minimum CUDA 11.8 or higher version.
+torch, torchaudio torchvision
+
+////steps to follow 
+
+--Create conda env  copy
+conda create --name sam2 python=3.10 -y
+then
+conda activate sam2
+
+--for CUDA 11.8 copy 
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 
+then
+pip install -r requirements.txt
 
 1. go to directory
 cd checkpoints
 
-2. download weights file by
-download_weights.py 
+2. download weights file
+download_weights.py  
 
 3. Add videos in input videos folder 
 
