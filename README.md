@@ -1,6 +1,12 @@
 # Sam2_annotation
 Implemented annotation tool and predicted object by sam2 model gives object centroid in csv  and visual displayed videos 
 
+# Required
+Python 3.13.0 
+torch==2.6.0+cu126
+torchaudio==2.6.0+cu126
+torchvision==0.21.0+cu126
+
 1. go to directory
 cd checkpoints
 
