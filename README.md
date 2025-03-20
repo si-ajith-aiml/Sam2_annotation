@@ -14,8 +14,9 @@ An annotation tool that utilizes the SAM2 model to predict objects and generate 
 ## **Installation Steps**
 
 ### **1. Create a Conda Environment**
-```bash
+bash
 conda create --name sam2 python=3.10 -y
+bash
 conda activate sam2
 
 
