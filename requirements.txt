@@ -46,6 +46,8 @@ PyYAML==6.0.2
 regex==2024.11.6
 requests==2.32.3
 safetensors==0.5.2
+# Editable install with no version control (SAM-2==1.0)
+-e d:\sam2\sam2
 scenedetect==0.6.5.2
 scikit-learn==1.6.1
 scipy==1.15.2
