@@ -1,11 +1,23 @@
-# Sam2_annotation
-Implemented annotation tool and predicted object by sam2 model gives object centroid in csv  and visual displayed videos 
+# Sam2 Annotation
 
+An annotation tool that utilizes the SAM2 model to predict objects and generate their centroid coordinates in a CSV file. It also visualizes the annotated videos.
 
-# Required main 
-Python 3.13.0 
-minimum CUDA 11.8 or higher version.
-torch, torchaudio torchvision
+---
+
+## **Requirements**
+- **Python**: 3.13.0  
+- **CUDA**: Minimum **11.8** or higher  
+- **Dependencies**: `torch`, `torchaudio`, `torchvision`
+
+---
+
+## **Installation Steps**
+
+### **1. Create a Conda Environment**
+```bash
+conda create --name sam2 python=3.10 -y
+conda activate sam2
+
 
 ////steps to follow 
 
