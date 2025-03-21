@@ -12,7 +12,7 @@ import shutil
 # Define directories
 #input files
 video_folder = "preprocessed_data/All_scencuts_clips/"
-text_folder = "preprocessed_data/ALL_text_files/"
+text_folder = "preprocessed_data/All_text_files/"
 
 #ouput_folder for no object present ex: no ball in the chunk
 empty_csv_folder = "Sam_predictor_data/No_object_present_files/csv_folder/"
@@ -167,21 +167,24 @@ def extract_frame_data(file_path):
     except Exception as e:
         print(f"Error processing inside extract_frame_data {file_path}: {e}")
 
+
 def save_csv(csv_path, frame_data, total_frames):
     try:
         with open(csv_path, 'w', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(["Frame", "Visibility", "X", "Y"])
-            
+
             for i in range(total_frames):
-                if i in frame_data:
-                    visibility = 1 if frame_data[i] else 0
-                    x, y = frame_data[i][0] if frame_data[i] else (0.0, 0.0)
+                if i in frame_data and frame_data[i]:  # Ensure data exists
+                    x, y = frame_data[i][0]  # Extract from the first tuple in the list
+                    visibility = 0 if (x == 0.0 and y == 0.0) else 1
                 else:
                     visibility, x, y = 0, 0.0, 0.0
+
                 writer.writerow([i, visibility, x, y])
     except Exception as e:
         print(f"Error processing inside save_csv {csv_path}: {e}")
+
 
 def run_sam2_annotation(video_path, frame_data):
     try:
@@ -230,13 +233,14 @@ def run_sam2_annotation(video_path, frame_data):
         print(f"Error processing inside run_sam2_annotation {video_path}: {e}")
         return None
 
-# Process videos
-for video_name in os.listdir(video_folder):
-    try:
-        print(f"Processing video inside sam 2 prediction {video_name}...!")
 
-        if not video_name.endswith(".mp4"):
-            continue
+video_list = [v for v in os.listdir(video_folder) if v.endswith(".mp4")]
+total_videos = len(video_list)
+
+# Process videos
+for count, video_name in enumerate(video_list, start=1):
+    try:
+        print(f"Processing video {count}/{total_videos}: {video_name}...!")
         
         video_path = os.path.join(video_folder, video_name)
         text_path = os.path.join(text_folder, video_name + ".txt")
@@ -275,19 +279,21 @@ for video_name in os.listdir(video_folder):
                 os.rename(video_path, os.path.join(sam_video_folder, video_name))
 
                 print(f"same predicted and saved video and csv !!!!!!{video_name} ")
+
+                # for video annotation tool save ##########
+                if save_annotate:
+                    visual_video_path = os.path.join(sam_video_folder, video_name)
+                    visual_csv_path = os.path.join(sam_csv_folder, os.path.splitext(video_name)[0] + ".csv")
+                    visual_clips(visual_video_path,visual_csv_path,frame_folder,sam2_visual_folder)
+                else:
+                    print(f"Due to save_annotate is 0 , Skipping visual saving annotated clip for {video_name}")
+
             else:
                 print(f"issues in sam prediction in this video moving to error file {video_name}")
                 os.rename(video_path, os.path.join(error_videos_save, video_name))
                 csv_path = os.path.join(error_csv_save, video_name.replace(".mp4", ".csv"))
                 save_csv(csv_path, {}, total_frames)
 
-            # for video annotation tool save ##########
-            if save_annotate:
-                visual_video_path = os.path.join(sam_video_folder, video_name)
-                visual_csv_path = os.path.join(sam_csv_folder, os.path.splitext(video_name)[0] + ".csv")
-                visual_clips(visual_video_path,visual_csv_path,frame_folder,sam2_visual_folder)
-            else:
-                print(f"Due to save_annotate is 0 , Skipping visual saving annotated clip for {video_name}")
     except Exception as e:
         print(f"Error processing inside sam 2 prediction {video_name}: {e}")
 
