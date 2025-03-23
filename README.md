@@ -47,8 +47,8 @@ it will save videos in  Sam2_predictor_data/Sam2_visualization_annoted_clips
 
 
 ### 7. run post annotator tool.py to recorrect sam2 wrong predicted coordinates manually 
-use post annotator tool.py
-space to move next frame.
+- use post annotator tool.py
+- space to move next frame.
 leftarrow button to previous frame.
 mouseclick to add new point.
 r to remove new annotated point remove. 
