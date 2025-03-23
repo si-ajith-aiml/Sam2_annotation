@@ -18,38 +18,37 @@ conda create --name sam2 python=3.10 -y
 conda activate sam2
 
 ### Copy to download CUDA 11.8
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 
+- pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 
 
 ### **steps to follow **
-pip install -r requirements.txt
+- pip install -r requirements.txt
 
 ### 1. go to directory
-cd checkpoints
+- cd checkpoints
 
 ### 2. run python weights file
-python download_weights.py  
+- python download_weights.py  
 
 ### 3. Add videos in input videos folder 
 
 ### 4. run pre_annotator_tool.py
-It will create & save all data in preprocessed_data folder .
+- It will create & save all data in preprocessed_data folder .
 
 ### 5. run sam2_predictor.py
-It will create & save all data in Sam2_predictor_data folder .
-Inside 
-for each video if (x , y) coordinates is slected then it will save in Object_present_files folder.
-for each video if (x , y) coordinates is not slected then it will save in No_object_present_files folder.
-for each video ifany error occurred then it will save in error_files folder.
+- It will create & save all data in Sam2_predictor_data folder .
+- Inside 
+- for each video if (x , y) coordinates is slected then it will save in Object_present_files folder.
+- for each video if (x , y) coordinates is not slected then it will save in No_object_present_files folder.
+- for each video ifany error occurred then it will save in error_files folder.
 
 ### 6.to save Annotated Videos
-should be always (save_annotate = 1 )in sam2_predictor.py inside
-it will save videos in  Sam2_predictor_data/Sam2_visualization_annoted_clips
+- should be always (save_annotate = 1 )in sam2_predictor.py inside
+- it will save videos in  Sam2_predictor_data/Sam2_visualization_annoted_clips
 
 
-### 7. run post annotator tool.py to recorrect sam2 wrong predicted coordinates manually 
-- use post annotator tool.py
-- space to move next frame.
-leftarrow button to previous frame.
-mouseclick to add new point.
-r to remove new annotated point remove. 
-c button remove point and ove to next frame.
+### 7. run post annotator tool.py to recorrect sam2 wrong predicted coordinates manually.
+- "space" to move next frame.
+- "leftarrow" button to previous frame.
+- "mouseclick" to add new point.
+- "r" to remove new annotated point remove. 
+- "c" button remove point and ove to next frame.
