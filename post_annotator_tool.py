@@ -19,13 +19,13 @@ canvas = None
 annotation_file = None
 video_width = None
 video_height = None
-display_width, display_height = 1300, 600
+display_width, display_height = 1200, 700
 video_files = []
 current_video_index = 0
 frames_folder = None
 total_frames = None
 
-base = "Sam_predictor_data/Object_present_files/"
+base = "ajith/Object_present_files/"
 corrected_csv_folder = base + "corrected_csv"
 video_folder = base + "videos"
 annotated_videos_qc_pending = base + "videos"
@@ -74,6 +74,7 @@ def generate_frames(video_path):
     except Exception as e:
         print(f"Error extracting frames: {e}")
         return None
+
 
 def get_frame_with_ffmpeg(frames_folder, frame_number):
     path = f"{frames_folder}/{frame_number}.png"  # Adjust if frames start from 1
@@ -208,6 +209,11 @@ def finish_task(event):
     print(f"Video {video_files[current_video_index]} saved to 'clips_done' folder.")
     os.remove(video_files[current_video_index])
 
+        # Delete extracted frames folder
+    if frames_folder and os.path.exists(frames_folder):
+        print(f"Deleting frames folder: {frames_folder}")
+        shutil.rmtree(frames_folder)
+
     response = show_message_box("Do you want to continue with the next video?")
     if response:
         current_video_index += 1
@@ -221,7 +227,6 @@ def finish_task(event):
         print("Exiting...")
         window.destroy()
     save_annotations()
-    shutil.rmtree(frames_folder)
 
 def start_video_processing():
     global annotations, current_frame, annotation_file, video_files, current_video_index, frames_folder, video
@@ -237,6 +242,7 @@ def start_video_processing():
     annotation_file = corrected_annotation_file
 
     frames_folder = generate_frames(video_path)
+    print("Extracted frames ")
 
     if frames_folder is not None:
         annotations = pd.read_csv(annotation_file)
@@ -268,7 +274,7 @@ if __name__ == "__main__":
         window.bind("<r>", remove_annotation)
         window.bind("<Button-1>", add_annotation)
         window.bind("<space>", next_frame)
-        window.bind("<Left>", prev_frame)
+        window.bind("<p>", prev_frame)
         window.bind("<Return>", finish_task)
         window.bind("<f>", go_to_first_frame)
         window.bind("<l>", go_to_last_frame)
