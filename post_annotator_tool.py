@@ -25,9 +25,10 @@ current_video_index = 0
 frames_folder = None
 total_frames = None
 
-base = "ajith/Object_present_files/"
+base = "Sam_predicted_data/Object_present_files/"
 corrected_csv_folder = base + "corrected_csv"
 video_folder = base + "videos"
+clips_done_folder = base + "clips_done"
 annotated_videos_qc_pending = base + "videos"
 annotation_folder = base + "csv_folder"
 
@@ -202,11 +203,11 @@ def show_message_box(message):
 def finish_task(event):
     global annotations, current_video_index, video_files, video
 
-    os.makedirs("clips_done", exist_ok=True)
-    destination_path = os.path.join("clips_done", os.path.basename(video_files[current_video_index]))
+    os.makedirs(clips_done_folder, exist_ok=True)
+    destination_path = os.path.join(clips_done_folder, os.path.basename(video_files[current_video_index]))
     shutil.copy(video_files[current_video_index], destination_path)
 
-    print(f"Video {video_files[current_video_index]} saved to 'clips_done' folder.")
+    print(f"Video {video_files[current_video_index]} saved to '{clips_done_folder}' folder.")
     os.remove(video_files[current_video_index])
 
         # Delete extracted frames folder
