@@ -129,7 +129,7 @@ def remove_annotation(event):
         annotations.loc[annotations['Frame'] == current_frame, ['Visibility', 'X', 'Y']] = [0, 0, 0]
     else:
         new_annotation = pd.DataFrame({'Frame': [current_frame], 'Visibility': [0], 'X': [0], 'Y': [0]})
-        annotations = annotations.append(new_annotation, ignore_index=True)
+        annotations = pd.concat([annotations, new_annotation], ignore_index=True)
 
     save_annotations()
     display_frame()
